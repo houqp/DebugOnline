@@ -1,40 +1,114 @@
-
 <html>
 <head>
 <title>
 debugonline
 </title>
 <script>
+
+function initAjax()
+{
+    if(window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+        if (ajax.overrideMimeType)
+            ajax.overrideMimeType('text/xml');
+    }
+    else if(window.ActiveXObject) { 
+        try {
+            ajax = new ActiveXObject("Msxml2.XMLHTTP");
+        }catch(e) {
+            try {
+                ajax = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {}
+        }
+    }
+    
+    if (!ajax || typeof(ajax) =='undefined') {
+        alert('Cannot create an XMLHTTP instance!');
+        return null;
+    }
+    
+    return ajax;
+}
+
+function doAjax(funcResp, method, url, content)
+{   
+    var ajax = initAjax();
+    if(! ajax || (method != 'GET' && method != 'POST') ) return;
+     
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4) {
+            if (ajax.status == 200) {
+            
+                var resp = '';
+                var contentType = ajax.getResponseHeader('Content-Type');
+                if(/text\/xml/i.test(contentType)) {
+                    resp = ajax.responseXML;
+                }
+                else { 
+                    resp = ajax.responseText;
+                }
+                
+                if(typeof(funcResp) == 'function') {
+                    funcResp(resp);
+                }
+                else {
+                }
+            }
+            else {
+                alert('There was a problem with the request.');
+            }
+        }
+    };
+
+    ajax.open(method, url, true);
+    if(method == 'POST') {
+        ajax.setRequestHeader("Content-Type",
+                    "application/x-www-form-urlencoded;charset=gb2312");
+    }
+    ajax.send(content);
+}
 function checksubmit(flag)
 {
-	document.myForm.action = "system.php?action="+flag;
-	document.myForm.submit();
+	var code=document.getElementById("code").value;
+	var title=document.getElementById("title").value;
+	var str="action="+flag+"&code="+code+"&title="+title;
+	doAjax(doSubmitResult,'POST','system.php',str);
+	return true;
 }
-function debug()
+function doSubmitResult(flag)
 {
-
+	document.getElementById("result").innerHTML="result:<p>"+flag;
+}
+function change()
+{
+	document.getElementById("debug").innerHTML='debug line:<input type="text" value="" rows="20" cols="5" name="debugline" //><p>bar   name:<input type="text" value="" name="barname" //><p><input type="button" value="debug" onClick="checksubmit(\'debug\');"//><input type="button" value="cancle" onClick="cancle();"//><input type="button" value="next" onClick="cancle();"//>';
 }
 </script>
 </head>
 <body>
 
 <form action="system.php" method="POST" name="myForm">
-code title:<input type="text" value="" name="title">
-<br>
-<textarea type="submit" value="submit" name="code" rows="10" cols="32">
+code title:<input type="text" value="" name="title" id="title">
+<p>
+<textarea type="submit" value="submit" name="code" id="code" rows="10" cols="32">
+#include<stdio.h>
+int main()
+{
+	printf("hello world");
+	return 0;
+}
 </textarea>
-<br />
+<p>
 <div id="debug">
-debug line:<input type="text" value="" rows="20" cols="5" name="debugline"/>
-<br />
-<br>
-bar name:<input type="text" value="" name="barname">
-</br>
 <input type="button" value="compile" onClick="checksubmit('compile');"/>
-<input type="button" value="debug" onClick="checksubmit('debug');"/>
+<input type="button" value="debug" onClick="change();"/>
 <input type="button" value="next" onClick="checksubmit('next');"/>
 <input type="button" value="run" onClick="checksubmit('run');"/>
 </div>
+<p>
+<div id="result">
+</div>
+</br>
 </form>
 
 </body>

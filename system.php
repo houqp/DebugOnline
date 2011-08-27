@@ -4,12 +4,14 @@
 	$debug = $_POST["debug"];
 	$debugs = $_POST["debugs"];
 	$next = $_POST["next"];
-	$action = $_GET["action"];
+	$action = $_POST["action"];
 	$debugline = $_POST["debugline"];
 	$barname = $_POST["barname"];
+	//echo $code.$title.$action;
 	function getResult($file)
 	{
-		return $result = file_get_contents($file);		
+		$result = file_get_contents($file);	
+		return $result;		
 	}
 	//echo $code.$title.$debugline.$barname;
 	
@@ -22,10 +24,13 @@
 	if($action == "run")
 	{	
 		$command = "cd temp && make run" ;
-		//$command = "ls";
+		//echo $command;
 		exec($command);
 		$resultfile = $dir."run_output";
-		getResult($resultfile);
+		$result = getResult($resultfile);
+		unlink($filename);
+		echo $result;
+		
 	}
 	else if($action == "compile")
 	{
