@@ -1,11 +1,8 @@
 <?php
 	$code = $_POST["code"];
 	$title = $_POST["title"];
-	$debug = $_POST["debug"];
-	$debugs = $_POST["debugs"];
-	$next = $_POST["next"];
+	$breakpoint = $_POST["breakpoint"];
 	$action = $_POST["action"];
-	$debugline = $_POST["debugline"];
 	$barname = $_POST["barname"];
 	//echo $code.$title.$action;
 	function getResult($file)
@@ -13,9 +10,11 @@
 		$result = file_get_contents($file);	
 		return $result;		
 	}
-	//echo $code.$title.$debugline.$barname;
-	
-	//echo $action;	
+	function debugRun()
+	{
+		$command = "cd temp && make gdb";
+		exec($command);
+	}
 	$dir = "/var/www/debugonline/temp/";
 	$filename = $dir.$title;
 	$breakfile = $dir."gdb_commands";
@@ -30,6 +29,7 @@
 		$resultfile = $dir."run_output";
 		$result = getResult($resultfile);
 		unlink($filename);
+		unlink($resultfile);
 		echo $result;
 		
 	}
@@ -39,19 +39,24 @@
 		shell_exec($command);
 		$resultfile = $dir."compile_output";
 		$result = getResult($resultfile);
+		unlink($resultfile);
 		if($result == "")
 			echo "compile good";
 		else echo $result;
 		
 	}
 	else if($action == "debug")
-	{	
-		$command = "make gdb";
-		shell_exec($command);
+	{			
+		$command = "r\n";
+		$breakfp = fopen($breakfile,"a+");
+		fputs($breakfp,$command);
+		fclose($breakfp);
+		debugRun();
+		$result = getResult($dir."gdb_output");
+		echo $result;
 	}
 	else if($action == "break")
 	{
-
 		$command = "b ".$breakpoint."\n";
 		$breakfp = fopen($breakfile,"a+");
 		fputs($breakfp,$command);
@@ -63,7 +68,7 @@
 		$breakfp = fopen($breakfile,"a+");
 		fputs($breakfp,$command);
 		fclose($breakfp);
-		$result = getResult($dir."gdb_output");
+		$result = getResult($dir."gdb_commands");
 	}
 	else if($action == "printf")
 	{
@@ -71,7 +76,8 @@
 		$breakfp = fopen($breakfile,"a+");
 		fputs($breakfp,$command);
 		fclose($breakfp);
-		$result = getResult($dir."gdb_output");
+		debugRun();
+		$result = getResult($dir."gdb_commands");
 	}
 	
 ?>

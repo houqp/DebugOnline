@@ -72,6 +72,17 @@ function checksubmit(flag)
 	var code=document.getElementById("code").value;
 	var title=document.getElementById("title").value;
 	var str="action="+flag+"&code="+code+"&title="+title;
+
+	if(flag == "break")
+	{
+		var breakpoint = document.getElementById("breakpoint").value;
+		str+="&breakpoint="+breakpoint;
+	}
+	else if(flag == "printf")
+	{
+		var printf = document.getElementById("barname").value;
+		str+="&barname="+printf;
+	}
 	doAjax(doSubmitResult,'POST','system.php',str);
 	return true;
 }
@@ -85,19 +96,21 @@ function cancle()
 }
 function change()
 {
-	document.getElementById("debug").innerHTML='<p>debug line:<input type="text" value="" rows="20" cols="5" name="debugline" /><input type="button" value="break" id="break" onClick="checksubmit(\'break\');break();"/><p>bar &nbsp;&nbsp;name:<input type="text" value="" name="barname" /><input type="button" value="printf" id="printf" onClick="printf();"/><p><input type="button" value="debug" onClick="checksubmit(\'debug\');"/><input type="button" value="next" id="next" onClick="next();"/><input type="button" value="cancle" onClick="cancle();"/>';
+	document.getElementById("debug").innerHTML='<p>debug line:<input type="text" value="" rows="20" cols="5" id="breakpoint" name="breakpoint" /><input type="button" value="break" id="break" name="break" onClick="checksubmit(\'break\');"/><p>bar &nbsp;&nbsp;name:<input type="text" value="" name="barname" id="barname" /><input type="button" value="printf" id="printf" onClick="checksubmit(\'printf\');"/><p><input type="button" value="run" onClick="checksubmit(\'debug\');"/><input type="button" value="next" id="next" onClick="next();"/><input type="button" value="cancle" onClick="cancle();"/>';
 }
 </script>
 </head>
 <body>
 
 <form action="system.php" method="POST" name="myForm">
-code title:<input type="text" value="" name="title" id="title">
+code title:<input type="text" value="main.c" name="title" id="title">
 <p>
 <textarea type="submit" value="submit" name="code" id="code" rows="10" cols="32">
 #include<stdio.h>
 int main()
 {
+	int a=0;
+	a=10;
 	printf("hello world");
 	return 0;
 }
