@@ -1,0 +1,26 @@
+API
+===
+
+1、前端提交的代码部分的名字为code，调试行数的名字为debugs，编译按钮的名字为compile，运行按钮的名字为run，调试按钮为debug，调试下一步按钮的名字为next。
+2、后台与前台的交互全部放在class.system.php类里面。
+3、
+
+GDB命令
+=======
+break on line 12:
+
+  b 12
+
+run the program:
+
+ r
+
+to next break point:
+
+ n
+
+print value of variable named "bar"
+
+ p bar
+
+
