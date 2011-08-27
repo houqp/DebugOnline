@@ -1,6 +1,12 @@
-.PHONY=clean all
+.PHONY:clean all run compile
 
-all:db
+all:compile
 	
-db:
-	gcc -o bin -O0 -g *.c
+compile:
+	gcc -o bin -O0 -g *.c > compile_output
+
+run:
+	./bin > run_output > run_output
+
+gdb:
+	gdb -x gdb_commands bin > gdb_output

@@ -15,18 +15,18 @@
 	if(action == "run")
 	{	
 		//留待完善
-		$command = ;
+		$command = "make run" ;
 		shell_exec($command);
 		$resultfile = $dir."";
 	}
 	else if(action == "compile")
 	{
-		$command = ;
+		$command = "make";
 		shell_exec($command);
 	}
 	else if(action == "debug")
 	{
-		$command = ;
+		$command = "make gdb";
 		shell_exec($command);
 	}
 	
