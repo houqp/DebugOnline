@@ -2,7 +2,17 @@
 class Compile extends Code
 {
 	private $command;
-	function runCommand();
-	function getResult();
+	public function __construct($code = "")
+	{
+		$command = $code;
+	}
+	function runCommand($command)
+	{
+		shell($command);
+	}
+	function getResult()
+	{
+		
+	}
 }
 ?>

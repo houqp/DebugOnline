@@ -7,8 +7,6 @@ class Code
 	public function runCommand()
 	{
 	}
-	public function getResult()
-	{
-	}
+	
 }
 ?>
