@@ -30,6 +30,8 @@
 		$result = getResult($resultfile);
 		unlink($filename);
 		unlink($resultfile);
+		$result = str_replace("\n","<p>",$result);
+		echo $result;
 	}
 	else if($action == "compile")
 	{
@@ -40,6 +42,8 @@
 		unlink($resultfile);
 		if($result == "")
 			echo "compile good";
+		$result = str_replace("\n","<p>",$result);
+		echo $result;
 		
 	}
 	else if($action == "debug")
@@ -51,6 +55,8 @@
 		debugRun();
 		$result = getResult($dir."gdb_output");
 		unlink($dir."gdb_output_raw.old");
+		$result = str_replace("\n","<p>",$result);
+		echo $result;
 	}
 	else if($action == "break")
 	{
@@ -58,6 +64,15 @@
 		$breakfp = fopen($breakfile,"a+");
 		fputs($breakfp,$command);
 		fclose($breakfp);
+		$result = getResult($dir."gdb_commands");
+		if(strstr($result,"r") != FALSE)
+		{
+			debugRun();
+			$result = getResult($dir."gdb_output");
+			unlink($dir."gdb_output_raw.old");
+			$result = str_replace("\n","<p>",$result);
+			echo $result;
+		}
 	}
 	else if($action == "next")
 	{
@@ -68,6 +83,8 @@
 		debugRun();
 		$result = getResult($dir."gdb_output");
 		unlink($dir."gdb_output_raw.old");
+		$result = str_replace("\n","<p>",$result);
+		echo $result;
 	}
 	else if($action == "printf")
 	{
@@ -77,11 +94,15 @@
 		fclose($breakfp);
 		debugRun();
 		$result = getResult($dir."gdb_output");
+		$result = str_replace("\n","<p>",$result);
+		echo $result;
 	}
 	else if($action == "cancle")
 	{
-		unlink($dir."gdb_commands");
+		unlink($dir."gdb_commands");	
+		$result = str_replace("\n","<p>",$result);
+		echo $result;
+		
 	}
-	$result = str_replace("\n","<p>",$result);
-	echo $result;
+
 ?>
