@@ -18,6 +18,7 @@
 	//echo $action;	
 	$dir = "/var/www/debugonline/temp/";
 	$filename = $dir.$title;
+	$breakfile = $dir."gdb_commands";
 	$fp = fopen($filename,"w");
 	fputs($fp,$code);
 	fclose($fp);
@@ -48,8 +49,29 @@
 		$command = "make gdb";
 		shell_exec($command);
 	}
-	
-	
-	
+	else if($action == "break")
+	{
+
+		$command = "b ".$breakpoint."\n";
+		$breakfp = fopen($breakfile,"a+");
+		fputs($breakfp,$command);
+		fclose($breakfp);
+	}
+	else if($action == "next")
+	{
+		$command = "n\n";
+		$breakfp = fopen($breakfile,"a+");
+		fputs($breakfp,$command);
+		fclose($breakfp);
+		$result = getResult($dir."gdb_output");
+	}
+	else if($action == "printf")
+	{
+		$command = "p ".$barname."\n";
+		$breakfp = fopen($breakfile,"a+");
+		fputs($breakfp,$command);
+		fclose($breakfp);
+		$result = getResult($dir."gdb_output");
+	}
 	
 ?>

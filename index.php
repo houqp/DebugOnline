@@ -79,9 +79,13 @@ function doSubmitResult(flag)
 {
 	document.getElementById("result").innerHTML="result:<p>"+flag;
 }
+function cancle()
+{
+	document.getElementById("debug").innerHTML='<input type="button" value="compile" onClick="checksubmit(\'compile\');"/><input type="button" value="debug" onClick="change();"/><input type="button" value="next" onClick="checksubmit(\'next\');"/><input type="button" value="run" onClick="checksubmit(\'run\');"/>';
+}
 function change()
 {
-	document.getElementById("debug").innerHTML='debug line:<input type="text" value="" rows="20" cols="5" name="debugline" //><p>bar   name:<input type="text" value="" name="barname" //><p><input type="button" value="debug" onClick="checksubmit(\'debug\');"//><input type="button" value="cancle" onClick="cancle();"//><input type="button" value="next" onClick="cancle();"//>';
+	document.getElementById("debug").innerHTML='<p>debug line:<input type="text" value="" rows="20" cols="5" name="debugline" /><input type="button" value="break" id="break" onClick="checksubmit(\'break\');break();"/><p>bar &nbsp;&nbsp;name:<input type="text" value="" name="barname" /><input type="button" value="printf" id="printf" onClick="printf();"/><p><input type="button" value="debug" onClick="checksubmit(\'debug\');"/><input type="button" value="next" id="next" onClick="next();"/><input type="button" value="cancle" onClick="cancle();"/>';
 }
 </script>
 </head>
@@ -102,7 +106,6 @@ int main()
 <div id="debug">
 <input type="button" value="compile" onClick="checksubmit('compile');"/>
 <input type="button" value="debug" onClick="change();"/>
-<input type="button" value="next" onClick="checksubmit('next');"/>
 <input type="button" value="run" onClick="checksubmit('run');"/>
 </div>
 <p>
