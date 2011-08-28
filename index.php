@@ -6,7 +6,6 @@
 </head>
 <body>
   <form action="system.php" method="POST" name="myForm">
-  <div id="">
   <h4>File name:</h4>
   <input type="text" value="main.c" name="title" id="title">
   <h4>Code:</h4>
