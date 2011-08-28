@@ -8,8 +8,8 @@
 	$ip = $_SERVER['REMOTE_ADDR'];
 	
 	//mkdir a folder for a user
-	$fold1="/var/www/debugonline/temp/";
-	$dir="/var/www/debugonline/".$ip."/";
+	$fold1="/var/www/dbo/temp/";
+	$dir="/var/www/dbo/".$ip."/";
 	xCopy($fold1,$dir,1);
 	
 	$breakfile = $dir."gdb_commands";
@@ -40,7 +40,7 @@
 		$result = getResult($resultfile);
 		unlink($resultfile);
 		if($result == "")
-			echo "compile good";
+			echo "compile succeed!";
 		$result = str_replace("\n","<p>",$result);
 		echo $result;
 		
