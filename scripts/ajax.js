@@ -82,15 +82,15 @@ function checksubmit(flag)
 }
 function doSubmitResult(flag)
 {
-	document.getElementById("result").innerHTML="result:<p>"+flag;
+	document.getElementById("result").innerHTML="<h2>result</h2><p>"+flag;
 }
 function cancle()
 {
 	str="action=cancle";
 	doAjax("",'POST','system.php',str);
-	document.getElementById("debug").innerHTML='<input type="button" value="compile" onClick="checksubmit(\'compile\');"/><input type="button" value="debug" onClick="change();"/><input type="button" value="run" onClick="checksubmit(\'run\');"/>';
+	document.getElementById("debug").innerHTML='<div id="main_buttons"><input type="button" value="compile" onClick="checksubmit(\'compile\');"/><input type="button" value="debug" onClick="change();"/><input type="button" value="run" onClick="checksubmit(\'run\');"/></div>';
 }
 function change()
 {
-	document.getElementById("debug").innerHTML='<p>debug line:<input type="text" value="" rows="20" cols="5" id="breakpoint" name="breakpoint" /><input type="button" value="break" id="break" name="break" onClick="checksubmit(\'break\');"/><p>bar &nbsp;&nbsp;name:<input type="text" value="" name="barname" id="barname" /><input type="button" value="printf" id="printf" onClick="checksubmit(\'printf\');"/><p><input type="button" value="run" onClick="checksubmit(\'debug\');"/><input type="button" value="next" id="next" onClick="checksubmit(\'next\');"/><input type="button" value="cancle" onClick="cancle();"/>';
+	document.getElementById("debug").innerHTML='<h4>Line&nbsp;number:</h4><input type="text" value="" rows="20" cols="5" id="breakpoint" name="breakpoint" /><input type="button" value="Break" id="break" name="break" onClick="checksubmit(\'break\');"/><h4>Variable&nbsp;name:</h4><input type="text" value="" name="barname" id="barname" /><input type="button" value="Print value" id="printf" onClick="checksubmit(\'printf\');"/><div id="main_buttons"><input type="button" value="run" onClick="checksubmit(\'debug\');"/><input type="button" value="next" id="next" onClick="checksubmit(\'next\');"/><input type="button" value="cancle" onClick="cancle();"/></div>';
 }

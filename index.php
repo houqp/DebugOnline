@@ -6,8 +6,9 @@
 </head>
 <body>
   <form action="system.php" method="POST" name="myForm">
-  <p>code title:</p>
+  <h4>File name:</h4>
   <input type="text" value="main.c" name="title" id="title">
+  <h4>Code:</h4>
   <textarea type="submit" value="submit" name="code"  id="code" rows="10" cols="32">
     #include<stdio.h>
     int main()
@@ -19,9 +20,11 @@
     }
   </textarea>
   <div id="debug">
+    <div id="main_buttons">
     <input type="button" value="compile" onClick="checksubmit('compile');"/>
     <input type="button" value="run" onClick="checksubmit('run');"/>
     <input type="button" value="debug" onClick="change();"/>
+    </div>
   </div>
   <div id="result">
   </div>

@@ -1,4 +1,4 @@
-body, html, div, textarea, p, form, input {
+body, html, div, textarea, p, form, input, h2 {
   padding:0;
   margin:0;
 }
@@ -10,17 +10,55 @@ html {
 
 body {
   margin:0 auto;
-  padding:2em;
-  max-width:900px;
+  padding:1em;
+  max-width:500px;
   border-radius:1em;
   background-color:rgba(222,222,222,1);
 }
 
-p {
-  margin:0.5em 0;
+h4 {
+  margin:0.5em 0 0.1em 0;
+  font-weight:bold;
+}
+
+h4:before {
+  content:"[ ";
+}
+
+h4:after {
+  content:"]";
+  float:right;
+}
+
+input {
+  padding:0.1em 0.4em;
+}
+
+input {
+  margin:0.3em;
 }
 
 #code {
-  margin:1 2em;
+  margin:0.3em;
 }
 
+#main_buttons {
+  text-align:center;
+  margin:0.5em 0 0 0;
+}
+
+#main_buttons input {
+  padding:0.5em 1em;
+}
+
+#result {
+  margin:1em 0 0 0;
+  padding:1em;
+  background:#2A2A2A;
+  color:#AFE091;
+  box-shadow:2px 2px 15px rgba(0, 0, 0, 0.8);
+}
+
+#result h2 {
+  text-align:center;
+}
